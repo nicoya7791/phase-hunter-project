@@ -2,6 +2,7 @@
  * Project 4 - OOP Game App
  * Game.js */
 // creates a game class
+const overlay = document.querySelector('#overlay');
 class Game {
     constructor() {
         this.missed = 0;
@@ -40,7 +41,7 @@ class Game {
      */
 
     startGame() {
-        const overlay = document.querySelector('#overlay');
+        //remove ovelay to show keyboard and phrase place holder.
         overlay.style.display = 'none';
         this.activePhrase = game.getRandomPhrase();
         const phrase = new Phrase(this.activePhrase.phrase);
@@ -54,8 +55,10 @@ class Game {
     */
     checkForWin() {
         // Get the array of hidden letters then check if length is zero return true= win the game.
-        const hiddenLettersArray = document.querySelectorAll('.hiden');
-        return hiddenLettersArray.length === 0;
+        const hiddenLettersArray = document.querySelectorAll('.hide');
+        // if the list of characters class 'hide is zero consider a win else a loss.
+        return hiddenLettersArray.length === 0 ? true : false;
+
     };
 
     /**
@@ -65,12 +68,36 @@ class Game {
     */
     removeLife() {
         //use missed value for index in array 
-        const lives = document.querySelector('#scoreboard ol li');
+        const lives = document.querySelectorAll('#scoreboard li img');
         lives[this.missed].src = 'images/lostHeart.png';
         this.missed++;
+        //call game over when user have riched five tries.
         if (this.missed === 5) {
-            gameOver();
+            this.gameOver();
         }
     };
+
+    /**
+    * Displays game over message
+    * @param {boolean} gameWon - Whether or not the user won the game
+    */
+    gameOver(checkForWin) {
+        //add overlay when game ends
+        overlay.style.display = '';
+        const overlayH1 = document.querySelector('#overlay h1');
+        //if the game is a win add 'win' class and show message;
+        if (this.checkForWin()) {
+            overlayH1.textContent = 'you have won the game';
+            overlay.classList.remove('start');
+            overlay.classList.add('win');
+        } else {
+            //else show add lose classs and show yuou lose message
+            overlayH1.textContent = 'You have lost the game';
+            overlay.classList.remove('start');
+            overlay.classList.add('lose');
+        }
+
+    };
+
 
 }

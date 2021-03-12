@@ -22,6 +22,7 @@ startButton.addEventListener('click', (e) => {
 //***********test code begin*********************************
 
 
+
 // const phraseToDisplay = game.getRandomPhrase();
 // const phrase = new Phrase(phraseToDisplay.phrase);
 // phrase.addPhraseToDisplay();
