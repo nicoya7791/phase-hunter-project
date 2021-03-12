@@ -72,7 +72,7 @@ class Game {
         lives[this.missed].src = 'images/lostHeart.png';
         this.missed++;
         //call game over when user have riched five tries.
-        if (this.missed === 5) {
+        if (this.missed === 4) {
             this.gameOver();
         }
     };
@@ -98,6 +98,34 @@ class Game {
         }
 
     };
+    /**
+    * Handles onscreen keyboard button clicks
+    * @param (HTMLButtonElement) button - The clicked button element
+    */
+    handleInteraction(button) {
+        const key = button.textContent;
+        button.disabled = true;
+        //if letter is correct add class chosen, sow letter in the phrase, check for win
+        if (this.activePhrase.checkLetter(key)) {
+            button.classList.add('chosen');
+            this.activePhrase.showMatchedLetter(key);
+            if (this.checkForWin()) {
+                console.log(this.checkForWin())
+                this.gameOver()
+            }
+
+        }
+        //add class of wrong letter and remvove life
+        else {
+            button.classList.add('wrong');
+            this.removeLife();
+
+        }
+
+
+
+    };
+
 
 
 }
