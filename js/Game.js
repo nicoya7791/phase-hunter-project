@@ -1,9 +1,9 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Game.js */
 // creates a game class
 const overlay = document.querySelector('#overlay');
+//lives is an arrays of images or hearts per attempt
 const lives = document.querySelectorAll('#scoreboard li img');
+
+// game class
 class Game {
     constructor() {
         this.missed = 0;
@@ -16,6 +16,7 @@ class Game {
     * Creates phrases for use in game
     * @return {array} of phrases to be used in the game
     */
+
     createPhrases() {
         return [new Phrase('coding challenge'),
         new Phrase('Nothing is certain but death'),
@@ -27,9 +28,10 @@ class Game {
 
 
     /**
-* Selects random phrase from phrases property
-* @return {Object} Phrase object chosen to be used
-*/
+    * Selects random phrase from phrases property
+    * @return {Object} Phrase object chosen to be used
+    */
+
     getRandomPhrase() {
         let randomNum = Math.floor(Math.random() * this.phrases.length);
         let randomPhrase = this.phrases[randomNum];
@@ -54,6 +56,7 @@ class Game {
     * @return {boolean} True if game has been won, false if game wasn't
     won
     */
+
     checkForWin() {
         // Get the array of hidden letters then check if length is zero return true= win the game.
         const hiddenLettersArray = document.querySelectorAll('.hide');
@@ -66,6 +69,7 @@ class Game {
     * Removes a life from the scoreboard
     * Checks if player has remaining lives and ends game if player is out
     */
+
     removeLife() {
         //use missed value for index in array 
         const lives = document.querySelectorAll('#scoreboard li img');
@@ -81,6 +85,7 @@ class Game {
     * Displays game over message
     * @param {boolean} gameWon - Whether or not the user won the game
     */
+
     gameOver(checkForWin) {
         //add overlay when game ends
         overlay.style.display = '';
@@ -102,14 +107,17 @@ class Game {
         }
 
     };
+
     /**
     * Handles onscreen keyboard button clicks
     * @param (HTMLButtonElement) button - The clicked button element
     */
+
     handleInteraction(button) {
+        //the value of buton passed in this method is a button element.
         const key = button.textContent;
         button.disabled = true;
-        //if letter is correct add class chosen, sow letter in the phrase, check for win
+        //if letter is correct add class chosen, show letter in the phrase, check for win
         if (this.activePhrase.checkLetter(key)) {
             button.classList.add('chosen');
             this.activePhrase.showMatchedLetter(key);
@@ -129,12 +137,15 @@ class Game {
 
     resetGame() {
         const ul = document.querySelector('#phrase ul');
+        //removes all li that contains the letters in the phrase
         ul.innerHTML = ''
         const keysArray = document.querySelectorAll('.key');
+        //resets the keys to original state
         keysArray.forEach(key => {
             key.classList.remove('chosen', 'wrong');
             key.disabled = false;
         });
+        //resets hearts or lives to 5
         lives.forEach(img => img.src = "images/liveHeart.png");
     }
 }

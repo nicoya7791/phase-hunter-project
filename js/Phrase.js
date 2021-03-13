@@ -1,5 +1,4 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
+/* create Phrase class and constructor to initiolize the phrase.
  * Phrase.js */
 class Phrase {
     constructor(phrase) {
@@ -9,13 +8,14 @@ class Phrase {
 
     /**
     * Display phrase on game board
+    * used templet literal to add an li for each letter to the ul.
     */
-
 
     addPhraseToDisplay() {
         const phraseDiv = document.querySelector('#phrase');
         const ul = phraseDiv.firstElementChild;
         const html = this.letters.reduce((acc, letter) => {
+            // test if the letter is a space or not. add letter class or space class respectively. 
             if (!/\s/g.test(letter)) {
                 return acc + `<li class='hide letter'>${letter}</li>`;
             }
@@ -43,6 +43,7 @@ class Phrase {
     showMatchedLetter(letter) {
         const liArray = document.querySelectorAll('.letter');
         liArray.forEach(element => {
+            //shows or hide the letter that was passed.
             if (element.innerHTML === letter) {
                 element.classList.add('show')
                 element.classList.remove('hide')
