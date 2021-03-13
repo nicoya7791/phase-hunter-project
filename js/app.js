@@ -4,6 +4,8 @@
 let game = '';
 const startButton = document.querySelector('#btn__reset');
 const keysContainer = document.querySelector('#qwerty')
+const keyArray = document.querySelectorAll('.key');
+
 
 startButton.addEventListener('click', (e) => {
     game = new Game();
@@ -15,7 +17,16 @@ keysContainer.addEventListener('click', (e) => {
     if (button.tagName === 'BUTTON') {
         game.handleInteraction(button);
     }
-})
+});
+document.addEventListener('keyup', (e) => {
+    const button = e.key;
+    keyArray.forEach(key => {
+        if (key.textContent === button) {
+            game.handleInteraction(key);
+        }
+    })
+
+});
 
 
 

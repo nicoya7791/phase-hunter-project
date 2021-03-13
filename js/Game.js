@@ -3,6 +3,7 @@
  * Game.js */
 // creates a game class
 const overlay = document.querySelector('#overlay');
+const lives = document.querySelectorAll('#scoreboard li img');
 class Game {
     constructor() {
         this.missed = 0;
@@ -58,7 +59,6 @@ class Game {
         const hiddenLettersArray = document.querySelectorAll('.hide');
         // if the list of characters class 'hide is zero consider a win else a loss.
         return hiddenLettersArray.length === 0 ? true : false;
-
     };
 
     /**
@@ -72,7 +72,7 @@ class Game {
         lives[this.missed].src = 'images/lostHeart.png';
         this.missed++;
         //call game over when user have riched five tries.
-        if (this.missed === 4) {
+        if (this.missed === 5) {
             this.gameOver();
         }
     };
@@ -87,14 +87,18 @@ class Game {
         const overlayH1 = document.querySelector('#overlay h1');
         //if the game is a win add 'win' class and show message;
         if (this.checkForWin()) {
-            overlayH1.textContent = 'you have won the game';
+            overlayH1.textContent = 'You won the game, great!';
             overlay.classList.remove('start');
+            overlay.classList.remove('lose');
             overlay.classList.add('win');
+            this.resetGame();
         } else {
             //else show add lose classs and show yuou lose message
-            overlayH1.textContent = 'You have lost the game';
+            overlayH1.textContent = 'You lost, try again';
             overlay.classList.remove('start');
+            overlay.classList.remove('win');
             overlay.classList.add('lose');
+            this.resetGame();
         }
 
     };
@@ -121,11 +125,16 @@ class Game {
             this.removeLife();
 
         }
-
-
-
     };
 
-
-
+    resetGame() {
+        const ul = document.querySelector('#phrase ul');
+        ul.innerHTML = ''
+        const keysArray = document.querySelectorAll('.key');
+        keysArray.forEach(key => {
+            key.classList.remove('chosen', 'wrong');
+            key.disabled = false;
+        });
+        lives.forEach(img => img.src = "images/liveHeart.png");
+    }
 }
