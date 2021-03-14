@@ -104,6 +104,8 @@ class Game {
             overlay.classList.remove('win');
             overlay.classList.add('lose');
             this.resetGame();
+
+
         }
 
     };
@@ -122,7 +124,6 @@ class Game {
             button.classList.add('chosen');
             this.activePhrase.showMatchedLetter(key);
             if (this.checkForWin()) {
-                console.log(this.checkForWin())
                 this.gameOver()
             }
 
