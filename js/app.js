@@ -11,6 +11,7 @@ const keyArray = document.querySelectorAll('.key');
 startButton.addEventListener('click', (e) => {
     game = new Game();
     game.startGame();
+    // calling keyup listener here stops bug that is triggered when player uses CTL+R to refresh game.
     document.addEventListener('keyup', keyListener)
 })
 
@@ -25,7 +26,7 @@ keysContainer.addEventListener('click', (e) => {
 
 /**
  * Extra credits
- * if the that was press match the letter in the phrase, the handleinteracton method is call and the *letter button element is passed.
+ * if the letter pressed match the letter in the phrase, the handleinteracton method is call and the *letter button element is passed.
  * */
 const keyListener = (e) => {
     const buttonContent = e.key;
@@ -39,11 +40,14 @@ const keyListener = (e) => {
 
 };
 
+// This function adds animation to scoreboard. Hearts move upwards. 
 
 let heartsAways = (e) => {
     if (e.target.tagName === 'IMG') {
         e.target.animate([
+            //start position on Y axel
             { transform: 'translateY(0px)' },
+            //end position on Y axel
             { transform: 'translateY(-800px)' }
         ], {
             // timing options
@@ -52,4 +56,7 @@ let heartsAways = (e) => {
         })
     }
 }
+
+// Event listener that calls in the heartsAways function. It must be call below the function in order to work.
+
 document.querySelector('#scoreboard').addEventListener('mouseover', heartsAways)
